@@ -84,6 +84,7 @@
     }
 
     .toast { min-width: 260px; }
+    .toast-container { margin-inline: auto; }
 
     /* Cards header (B I N G O) styling */
     .bingo-letter{
@@ -92,7 +93,7 @@
       padding:6px 0;
       border-radius:6px;
       letter-spacing:2px;
-      font-size:1rem;
+      font-size: .85rem;
       font-weight: 800;
     }
 
@@ -147,37 +148,68 @@
       text-align: center;
       transition: 300ms ease-in !important;
     }
+    #cardsContainer {
+      /* border: 1px solid red; */
+      padding: 0 !important;
+      display: flex;
+      position: relative;
+      flex-wrap: wrap;
+    }
+    nav {
+      position: sticky;
+      top: 1rem;
+      background-color: #f8ffee;
+      color: #333;
+      z-index: 99;
+      box-shadow: 5px -5px 5px 2px #d7ded8a8;
+    }
+    .bingo-card-head {
+      position: absolute;
+      left: -2.35em;
+      z-index: -1;
+      width: 25px;
+      padding-inline: 4px; 
+      display: grid; place-items: center;
+      border-radius: 20% 0% 0% 20%;
+      aspect-ratio: 1;
+      font-weight: bold;
+      background-color: #041367 !important;
+      color: #fafafa !important;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container border border-1 shadow-lg mx-auto" id="mainBoard">
+  <div class="container mx-auto" id="mainBoard">
 
-    <nav class="border border-1 border-danger p-2 rounded-3">
-      <div class="container mb-2">
-        <span class="fw-semibold">Number of cards: </span>
-        <input type="number" id="numberOfCards" placeholder="input number of cards...." class="form-control form-control-sm d-inline-block" style="width: 220px;">
+    <nav class="border border-1 rounded-3 py-2">
+      <div class="container mb-2 d-grid" style="font-size: .65em;">
+        <span class="fw-semibold w-75">Number of cards: </span>
+        <input type="number" id="numberOfCards" placeholder="input number of cards...." class=" text-center w-25 form-control-sm d-inline-block" style="background: transparent; border: 0; outline: 0; border-bottom: 1px solid #555; border-radius: 0; color: #111; font-weight: bold;">
+        <div></div>
       </div>
 
-      <div class="container d-flex flex-wrap align-items-center gap-2">
-        <span class="fw-semibold">Roll a ball:</span>
-        <button id="rollBtn" class="btn btn-primary btn-sm">Roll</button>
-        <button id="resetBtn" class="btn btn-outline-danger btn-sm">Reset</button>
+      <div class="container d-grid align-items-center gap-2">
+        <div class="d-grid gap-2">
+          <button id="rollBtn" class="btn btn-primary btn-sm w-100" style="font-weight: 500;">🎲 ROLL A BALL 🎲</button>
+          <button id="resetBtn" class="btn btn-outline-danger btn-sm">RESTART</button>
+        </div>
+        <div class="d-flex gap-2 justify-content-between">
+          <div>
+            <span class="fw-bold" style="font-size: .65em;">Result:</span>
+            <span id="rolledNumber" class="fw-bold" style="font-size: .65em;">0</span>
+          </div>
+          <div>
+            <span class="fw-bold" style="font-size: .65em;"><span id="calledCount">0</span></span>
+            <span class="fw-bold ms-2 d-none" style="font-size: .65em;"><span id="winnerCount">0</span></span>
+          </div>
+        </div>
 
-        <span class="ms-2 fw-semibold">Result:</span>
-        <span id="rolledNumber" class="fw-bold fs-5">0</span>
       </div>
     </nav>
 
-    <!-- Winners / Status -->
-    <div class="container my-2 d-flex flex-wrap gap-2 align-items-center">
-      <div class="badge text-bg-secondary" id="calledCount">Called: 0</div>
-      <div class="badge text-bg-success d-none" id="winnerCount">Winners: 0</div>
-    </div>
-
-
     <!-- Bootstrap Toast Container -->
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+    <div class="toast-container position-fixed top-0 start-0 end-0 p-3" style="z-index: 1100;">
       <div id="winToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
           <div class="toast-body" id="winToastBody">BINGO!</div>
@@ -185,10 +217,10 @@
         </div>
       </div>
 
-      <div id="infoToast" class="toast align-items-center text-bg-primary border-0 mt-2" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body" id="infoToastBody">Ready.</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      <div id="infoToast" class="toast text-dark bg-white shadow-lg mt-2 text-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="shadow-lg">
+          <div class="toast-body d-flex justify-content-center fw-bold" id="infoToastBody">Ready!</div>
+          <!-- <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button> -->
         </div>
       </div>
     </div>
@@ -210,8 +242,8 @@
         <div class="grid-header">O</div>
       </div>
     </div>
-
-    <div class="container border border-1 border-primary p-4" id="patterns">
+    <hr>
+    <div class="container p-4 d-grid justify-content-center" id="patterns">
       <h4>Guidelines: Patterns</h4>
       
       <h6>Squares #1</h6> 
