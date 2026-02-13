@@ -822,8 +822,8 @@ async function loadBingoDataFromSheet() {
       card.dataset.card = String(cardIndex);
 
       const headerTop = document.createElement("div");
-      headerTop.classList.add("bg-info", "text-dark", "small", "px-2", "rounded-2", "d-flex", "gap-2");
-      headerTop.innerHTML = `<span>Card No.:</span> <span>${String(cardNumber).padStart(2, "0")}</span>`;
+      headerTop.classList.add("bingo-card-head");
+      headerTop.innerHTML = `<span>${String(cardNumber).padStart(2, "0")}</span>`;
 
       const headerLetters = document.createElement("div");
       headerLetters.classList.add("d-flex", "justify-content-evenly", "fw-bold", "py-2", "gap-1");
@@ -887,7 +887,7 @@ async function loadBingoDataFromSheet() {
       calledNumbers.push(number);
 
       const letter = getLetterForNumber(number);
-      rolledNumberDisplay.textContent = `${letter}-${number}`;
+      rolledNumberDisplay.textContent = `${letter} - ${number}`;
 
       animateRolledNumber();
       playRollSound();
@@ -897,7 +897,7 @@ async function loadBingoDataFromSheet() {
       checkAllWinners();
 
       updateBadges();
-      showInfoToast(`Rolled ${letter}-${number}`);
+      showInfoToast(`${letter} - ${number}`);
     }
 
     /* Winner detection with pattern info + win-line highlighting */
